@@ -12,17 +12,21 @@ var app = express();
 var debug = require('debug');
 var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
-
+var prerender = require('prerender-node');
 var fs = require('fs');
 var objConfig = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
 
 var server = http.createServer(app);
 
+
 app.use('/public', express.static(__dirname + '/app/public'));
 
-
+prerender.set('prerenderServiceUrl', (process.env.NODE_ENV !== 'production') ? 'http://localhost:1137/' : 'http://service.prerender.io/');
+prerender.set('prerenderToken', 'JzaYMT1rHS9YfjYujxvN');
+app.use(prerender);
 for(var i = 0; i < objConfig.routes.length; i++){
+  prerender.whitelisted(objConfig.routes[i]);
   app.get(objConfig.routes[i], function(req,res){
     res.sendFile(__dirname + "/app/index.html");
   });
@@ -37,9 +41,9 @@ app.get('*', function(req, res, next) {
 
 
 // prerender
-app.use(require('prerender-node')
+
   //.set('prerenderServiceUrl', (process.env.NODE_ENV !== 'production') ? 'http://localhost:1137/' : 'http://service.prerender.io/')
-  .set('prerenderToken', 'JzaYMT1rHS9YfjYujxvN'));
+
 
 
 

@@ -1,9 +1,8 @@
 $(window).load(function(){
- setTimeout(function(){
 
+ setTimeout(function(){
 	$("body").append("teste");
 	window.prerenderReady=true;
 
 }, 1900);
 });
-
