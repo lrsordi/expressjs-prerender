@@ -1,0 +1,47 @@
+{
+  "name": "expressjs-prerender",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lrsordi/expressjs-prerender.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lrsordi/expressjs-prerender/issues"
+  },
+  "homepage": "https://github.com/lrsordi/expressjs-prerender#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-jshint": "^2.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-nodemon": "^2.2.1",
+    "jshint": "^2.9.3"
+  },
+  "dependencies": {
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "browserify-resolutions": "^1.1.0",
+    "debug": "^2.2.0",
+    "express": "^4.14.0",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-copy": "0.0.2",
+    "gulp-less": "^3.1.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-preprocess": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-uglify": "^2.0.0",
+    "prerender-node": "^2.4.0",
+    "st": "^1.2.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
