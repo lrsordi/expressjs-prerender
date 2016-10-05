@@ -1,9 +1,9 @@
-var gulp = require('gulp');  
-var nodemon = require('gulp-nodemon');  
-var sass = require('gulp-ruby-sass');  
-var autoprefixer = require('gulp-autoprefixer');  
-var jshint = require('gulp-jshint');  
-var livereload = require('gulp-livereload'); 
+var gulp = require('gulp');
+var nodemon = require('gulp-nodemon');
+var sass = require('gulp-ruby-sass');
+var autoprefixer = require('gulp-autoprefixer');
+var jshint = require('gulp-jshint');
+var livereload = require('gulp-livereload');
 
 // Gulp Dependencies
 var rename = require('gulp-rename');
@@ -17,6 +17,7 @@ var buffer = require('vinyl-buffer');
 var source = require('vinyl-source-stream');
 var resolutions = require('browserify-resolutions');
 var uglify = require('gulp-uglify');
+var tojst = require('gulp-tojst');
 
 var copy = require('gulp-copy');
 var clean = require('gulp-clean');
@@ -55,13 +56,13 @@ gulp.task('browserify-client', function() {
 });
 
 gulp.task('styles', function() {
-  return gulp.src('app/styles/main.less')
+  return gulp.src('app/less/main.less')
     .pipe(less())
     .pipe(prefix({ cascade: true }))
     .on('error', function (err) {
             console.log(err.toString());
             this.emit("end");
-        })    
+        })
     .pipe(rename('styles.css'))
     //.pipe(gulp.dest('build'))
     .pipe(gulp.dest('app/public/styles'))
@@ -70,34 +71,58 @@ gulp.task('styles', function() {
 
 
 
-gulp.task('tpl',function(){  
-    return gulp.src('app/views/**/*.tpl')
-    .pipe(livereload());
+gulp.task('jst', function () {
+  gulp.src('./app/templates/**/*.tpl')
+    .pipe(tojst('jst.js', {
+      separator: '\n',
+      namespace :"templates",
+      prettify: true,
+      processName : function(templateName){
+        // var arrSplit = templateName.split("/");
+        // templateName = arrSplit[arrSplit.length-1].replace(".tpl","");
+
+        var arrSplit = templateName.split("/");
+        templateName = arrSplit[arrSplit.length-1].replace(".tpl","");
+        // console.log(templateName);
+        return templateName;
+      },
+      templateSettings: {
+        interpolate: /\{\{(.+?)\}\}/g
+      }
+    }))
+    .pipe(gulp.dest('app/public/templates'))
 });
 
-gulp.task('html',function(){  
+gulp.task('html',function(){
     return gulp.src('app/index.html')
     .pipe(livereload());
 });
 
-
-gulp.task('watch', function() {  
-    livereload.listen();
-	  gulp.watch(['app/**/*.js',  '!public/scripts/scripts.js'], ['browserify-client']);
-	  gulp.watch(['app/**/*.less', '!public/styles/styles.css'], ['styles']);
-    gulp.watch('app/index.html', ['html']);
-    gulp.watch('app/views/**/*', ['tpl']);
+gulp.task('configjson',function(){
+    return gulp.src('config/*.json')
+    .pipe(copy("./app/public"))
+    .pipe(livereload());
 });
 
 
-gulp.task('server',function(){  
+gulp.task('watch', function() {
+    livereload.listen();
+	  gulp.watch(['app/**/*.js',  '!app/public/scripts/scripts.js'], ['browserify-client']);
+	  gulp.watch(['app/**/*.less', '!app/public/styles/styles.css'], ['styles']);
+    gulp.watch('app/index.html', ['html']);
+    gulp.watch('config/*.json', ['configjson']);
+    gulp.watch('app/templates/**/*', ['jst']);
+});
+
+
+gulp.task('server',function(){
     nodemon({
         'script': 'server.js',
-        'ignore': 'public/js/*.js'
+        'ignore': 'public/**/*  '
     });
 });
 
-gulp.task('serve', ['server','watch']);  
+gulp.task('serve', ['server','watch']);
 
 
 gulp.task('build-hlg', function() {
@@ -107,7 +132,7 @@ gulp.task('build-hlg', function() {
 
 
 
-/** 
+/**
  * PRODUCTION ENV
  */
 
@@ -131,7 +156,7 @@ gulp.task('build', ['prepare-build'], function(){
 
   gulp.src('./dist/public/styles/styles.min.css')
     .pipe(rename("styles.min"+num.toString()+".css"))
-    .pipe(gulp.dest("./dist/public/styles"));    
+    .pipe(gulp.dest("./dist/public/styles"));
 
   gulp.src(["./dist/public/scripts/scripts.min.js", "./dist/public/styles/styles.min.css", "./dist/public/styles/styles.css"])
     .pipe(clean());
@@ -145,7 +170,4 @@ gulp.task('build', ['prepare-build'], function(){
 
 
 
-gulp.task('default', ['browserify-client', 'styles', 'server', 'watch']);
-
-
-
+gulp.task('default', ['browserify-client', 'jst', 'configjson', 'styles', 'server', 'watch']);

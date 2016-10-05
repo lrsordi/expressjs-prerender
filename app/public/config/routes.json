@@ -1,0 +1,8 @@
+{
+	"routes": {
+		 "" : "home#index",
+		 "home/:subsection" : "home#index",
+		 "sobre-o-projeto" : "aboutTheProject#index",
+		 "produto/:id" : "product#index"
+	}
+}

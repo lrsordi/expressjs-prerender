@@ -1,8 +1,5 @@
-$(window).load(function(){
+window.$ = window.jQuery = require('jquery');
+window._ = window.underscore = require('underscore');
+var Application = require('./App');
 
- setTimeout(function(){
-	$("body").append("teste");
-	window.prerenderReady=true;
-
-}, 1900);
-});
+window.app = new Application();
