@@ -15,6 +15,7 @@ var Error404Controller = function(options){
         }
 
         app.mainView.pageRender(view);
+        $("head meta[name='prerender-status-code']").attr("content", "404");
         window.prerenderReady = true;
       }
   }

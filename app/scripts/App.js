@@ -26,8 +26,6 @@ var Application = function() {
         data = JSON.parse(data);
         self.routes = data.routes;
         self.routes["*path"] = "error404#index";
-
-        console.log(self.routes);
         self.loadMeta();
     });
     //this.initialize();
