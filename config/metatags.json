@@ -5,7 +5,22 @@
       "description" : "description home",
       "image" : "google.jpg"
     },
-    "home/:subsection" : {
+    "home/block1" : {
+      "title" : "titulo home subsection ",
+      "description" : "description home subsection",
+      "image" : "google.jpg"
+    },
+    "home/block2" : {
+      "title" : "titulo home subsection ",
+      "description" : "description home subsection",
+      "image" : "google.jpg"
+    },
+    "home/block3" : {
+      "title" : "titulo home subsection ",
+      "description" : "description home subsection",
+      "image" : "google.jpg"
+    },
+    "home/block4" : {
       "title" : "titulo home subsection ",
       "description" : "description home subsection",
       "image" : "google.jpg"
@@ -19,6 +34,16 @@
       "title" : "titulo produto ",
       "description" : "description produto",
       "image" : "google.jpg"
+    },
+    "*path" : {
+      "title" : "erradasso.",
+      "description" : "",
+      "image" : ""
+    },
+    "error(/:url)" : {
+      "title" : "erradasso.",
+      "description" : "",
+      "image" : ""
     }
   }
 }

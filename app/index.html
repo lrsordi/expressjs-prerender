@@ -16,13 +16,13 @@
         <link rel="shortcut icon" href="public/images/favicon.ico" type="image/x-icon" />
         <meta content="--" name="author" />
         <!-- @ifdef DEBUG -->
-        <base href="/"/>
+        <base href="http://localhost:3000/"/>
         <!-- @endif -->
         <!-- @if NODE_ENV='production' -->
-        <base href="/"/>
+        <base href="http://localhost:3000/"/>
         <!-- @endif -->
         <!-- @if NODE_ENV='development' -->
-        <base href=""/>
+        <base href="http://localhost:3000/"/>
         <!-- @endif -->
         <meta name="fragment" content="!">
         <meta name="description" content="--">
@@ -37,13 +37,10 @@
             window.templates = {};
         </script>
     </head>
-    <body spellcheck="false">
+    <body>
         <div id="app">
 
         </div>
-
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/plugins/ScrollToPlugin.min.js"></script>
         <script type="text/javascript" src="public/templates/jst.js"></script>
         <script type="text/javascript" src="public/scripts/scripts.js"></script>
     </body>

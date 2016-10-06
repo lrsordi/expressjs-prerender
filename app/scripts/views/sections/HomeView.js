@@ -1,31 +1,46 @@
 var Backbone = require('backbone');
+var BaseView = require('../_base/BaseView');
+require('gsap');
+require('gsap/src/uncompressed/plugins/ScrollToPlugin');
 
 /**
 * TEMPLATE VIEW
 * @about : this class render the route view correct, based on routes.js definitions
 **/
-var HomeView = Backbone.View.extend({
+var HomeView = BaseView.extend({
   /**
   Inicializa a BaseView
   @method BaseView.initialize
   */
-  redered : false,
+  $domEl : null,
 
   initialize: function (options) {
     this.options = options || {};
     this.identifier = options.identifier || "base-view";
+    this.controller = options.controller;
   },
 
-  identifier : "abouttheproject",
+  
 
   render : function(parentNode){
-    this.$el = window.templates.home({identifier : "home"});
+    this.$el = window.templates.home({identifier : this.identifier});
     return this;
   },
 
-  goToSubSection : function(block){
-    TweenMax.to(window, 1, {scrollTo : {x : 0, y : $("#home").find("."+block).offset().top}, ease : Quint.easeOut});
-  }
+
+  manageSubsection : function(subsection){
+    $domEl = $("#"+this.identifier);
+    var posy;
+
+    if(subsection){
+      posy = $domEl.find("."+subsection).offset().top;
+    }else{
+      posy = 0;
+    }
+    
+    // TweenMax.killTweensOf(window);
+    TweenMax.to(window, 1, {scrollTo:{x : 0, y : posy}, ease: Quint.easeInOut});
+  },
 });
 
 module.exports = HomeView;

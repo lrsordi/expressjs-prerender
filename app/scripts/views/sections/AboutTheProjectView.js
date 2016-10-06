@@ -1,25 +1,27 @@
 var Backbone = require('backbone');
+var BaseView = require('../_base/BaseView');
 
 /**
 * TEMPLATE VIEW
 * @about : this class render the route view correct, based on routes.js definitions
 **/
-var AboutTheProjectView = Backbone.View.extend({
+var AboutTheProjectView = BaseView.extend({
   /**
   Inicializa a BaseView
   @method BaseView.initialize
   */
-  redered : false,
 
   initialize: function (options) {
     this.options = options || {};
     this.identifier = options.identifier || "base-view";
+    this.controller = options.controller;
   },
 
-  identifier : "abouttheproject",
+  
 
   render : function(parentNode){
-    this.$el = window.templates.aboutheproject({identifier : "about-the-project", title : "Sobre o projeto", aboutTxt : "sobre o texto! =)"});
+    this.$el = window.templates.aboutheproject({identifier : this.identifier, title : "Sobre o projeto", aboutTxt : "sobre o texto! =)"});
+    this.$domEl = $("#"+this.identifier);
     return this;
   }
 });

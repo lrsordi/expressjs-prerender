@@ -1,27 +1,28 @@
 var Backbone = require('backbone');
 var $ = require('jquery');
 var HomeView = require('../views/sections/HomeView');
+var AbstractController = require('./_base/AbstractController');
 
 
-var HomeController = function(options){
-  var app = options.app;
-  var view;
+var HomeController = AbstractController.extend({
+  viewRecyclable : true,
 
-  return {
-      index : function(subsection){
-        view = new HomeView({block : subsection || "block1"});
-        app.mainView.pageRender(view);
+  index : function(){
+	if($("#home").length == 0){
+		this.view = new HomeView({endAppear : this.viewDidAppear, identifier : "home"});
+	    this.render();
+	    this.view.doAppear();
+	}
 
+	this.checkSubsection();
+  },
 
-        view.goToSubSection((subsection || "block1"));
-        $("head title").text(window.app.metatags[app.router.currentRoute].title  + "  " + (subsection || "block1"));
-        $("head meta[name='og:title']").attr("content",window.app.metatags[app.router.currentRoute].title  + "  " + (subsection || "block1"));
-        $("head meta[name=description], head meta[name='og:description']").attr("content",window.app.metatags[app.router.currentRoute].description  + "  " + (subsection || "block1"));
-
-        window.prerenderReady = true;
-      }
+  checkSubsection : function(){
+  	var arrSplit = Backbone.history.location.pathname.split("/");
+	var subsection = arrSplit[arrSplit.length-1];
+	this.view.manageSubsection(subsection);
   }
-}
+});
 
 
 

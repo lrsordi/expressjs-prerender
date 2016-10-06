@@ -11,6 +11,7 @@ var MainView = Backbone.View.extend({
   @method BaseView.initialize
   */
   rendered : false,
+  currentView : null,
 
   initialize: function (options) {
     this.options = options || {};
@@ -23,6 +24,11 @@ var MainView = Backbone.View.extend({
     if(!this.rendered)
       this.render();
 
+    if(this.currentView != null){
+      this.currentView.doDisappear();
+    }
+
+    this.currentView = view;
     view.render();
     this.sectionContainer.html(view.render().$el);
   },

@@ -1,28 +1,16 @@
 var Backbone = require('backbone');
 var $ = require('jquery');
+var AbstractController = require('./_base/AbstractController');
 var AboutTheProjectView = require('../views/sections/AboutTheProjectView');
 
 
-var AboutTheProjectController = function(options){
-  var app = options.app;
-  var view;
-
-
-  return {
-      index : function(){
-        console.log("about the project controller started");
-        if(!view){
-          view = new AboutTheProjectView({});
-        }
-
-        app.mainView.pageRender(view);
-        $("head title").text(window.app.metatags[app.router.currentRoute].title);
-        $("head meta[name='og:title']").attr("content",window.app.metatags[app.router.currentRoute].title);
-        $("head meta[name=description], head meta[name='og:description']").attr("content",window.app.metatags[app.router.currentRoute].description);       
-        window.prerenderReady = true;
-      }
+var AboutTheProjectController = AbstractController.extend({
+  index : function(){
+    this.view = new AboutTheProjectView({endAppear : this.viewDidAppear, identifier : "about-the-project"});
+    this.render();
+    this.view.doAppear();
   }
-}
+});
 
 
 

@@ -17,6 +17,8 @@ var buffer = require('vinyl-buffer');
 var source = require('vinyl-source-stream');
 var resolutions = require('browserify-resolutions');
 var uglify = require('gulp-uglify');
+var uglifyjs = require('gulp-uglifyjs');
+var extractor    = require('gulp-extract-sourcemap');
 var tojst = require('gulp-tojst');
 
 var copy = require('gulp-copy');
@@ -33,7 +35,6 @@ var minifyCSS = require('gulp-minify-css');
 /**
  * DEV ENVIRONMENT
  */
-
 gulp.task('browserify-client', function() {
   var b = browserify({
     entries : 'app/scripts/index.js',
@@ -41,18 +42,22 @@ gulp.task('browserify-client', function() {
   });
 
   return b
-    .transform("babelify", {})
-    .plugin(resolutions, ['react'])
+   // .transform("babelify", {})
+   // .plugin(resolutions, ['react'])
     .bundle()
-    .on('error', function (err) {
-            console.log(err.toString());
-            this.emit("end");
-        })
-    .pipe(source('app/scripts/index.js'))
+    .pipe(source('bundle.js'))
     .pipe(buffer())
     .pipe(rename('scripts.js'))
     .pipe(gulp.dest('app/public/scripts'))
     .pipe(livereload());
+});
+
+gulp.task('uglify', ['browserify-client'], function() {
+  return gulp.src('app/public/scripts/scripts_big.js')
+    .pipe(uglify())
+    .on('error', console.error.bind(console))
+    .pipe(rename('scripts.js'))
+    .pipe(gulp.dest('app/public/scripts'));
 });
 
 gulp.task('styles', function() {
@@ -107,7 +112,7 @@ gulp.task('configjson',function(){
 
 gulp.task('watch', function() {
     livereload.listen();
-	  gulp.watch(['app/**/*.js',  '!app/public/scripts/scripts.js'], ['browserify-client']);
+	  gulp.watch(['app/**/*.js',  '!app/public/scripts/scripts.js', '!app/public/scripts/scripts_big.js'], ['browserify-client']);
 	  gulp.watch(['app/**/*.less', '!app/public/styles/styles.css'], ['styles']);
     gulp.watch('app/index.html', ['html']);
     gulp.watch('config/*.json', ['configjson']);
@@ -118,7 +123,7 @@ gulp.task('watch', function() {
 gulp.task('server',function(){
     nodemon({
         'script': 'server.js',
-        'ignore': 'public/**/*  '
+        'ignore': 'public/**/*'
     });
 });
 

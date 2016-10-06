@@ -1,8 +1,16 @@
 {
 	"routes": {
 		 "" : "home#index",
-		 "home/:subsection" : "home#index",
+		 "home/block1" : "home#index",
+		 "home/block2" : "home#index",
+		 "home/block3" : "home#index",
+		 "home/block4" : "home#index",
+		 "home/" : "home#index",
+		 "home" : "home#index",
 		 "sobre-o-projeto" : "aboutTheProject#index",
-		 "produto/:id" : "product#index"
+		 "produto/:id" : "product#index",
+		 "*path" : "error404#index",
+		 "sitemap.xml" : "sitemap#index",
+		 "error(/:url)" : "error404#index"
 	}
 }
