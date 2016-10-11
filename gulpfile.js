@@ -86,7 +86,14 @@ gulp.task('jst', function () {
         // var arrSplit = templateName.split("/");
         // templateName = arrSplit[arrSplit.length-1].replace(".tpl","");
 
-        var arrSplit = templateName.split("/");
+        var arrSplit = [];
+
+        if(templateName.indexOf("\\") != -1){
+          templateName.split("\\");
+        }
+        else {
+          templateName.split("/");
+        }
         templateName = arrSplit[arrSplit.length-1].replace(".tpl","");
         // console.log(templateName);
         return templateName;

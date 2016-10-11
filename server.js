@@ -16,6 +16,7 @@ var prerender = require('prerender-node');
 var fs = require('fs');
 var objConfig = JSON.parse(fs.readFileSync('config/routes.json', 'utf8'));
 var server = http.createServer(app);
+var sitemap = require('express-sitemap');
 
 
 app.use('/public', express.static(__dirname + '/app/public'));
@@ -23,28 +24,22 @@ app.use('/public', express.static(__dirname + '/app/public'));
 prerender.set('prerenderServiceUrl', (process.env.NODE_ENV !== 'production') ? 'http://localhost:1137/' : 'http://service.prerender.io/');
 prerender.set('prerenderToken', 'JzaYMT1rHS9YfjYujxvN');
 app.use(prerender);
-// for(var s in objConfig.routes){
-//   prerender.whitelisted(s);
-//   app.get("/"+s, function(req,res){
-//     res.sendFile(__dirname + "/app/index.html");
-//   });
-// }
+
+var generatedSitemap = sitemap(generateSitemap());
+
+
+app.get('/sitemap.xml', function(req, res, next) {
+  generatedSitemap.XMLtoWeb(res);
+});
+app.get('/robots.txt', function(req, res, next) {
+  generatedSitemap.TXTtoWeb(res);
+});
 
 
 app.get('*', function(req, res, next) {
   res.sendFile(__dirname + "/app/index.html");
   //res.status(404).send('Sorry cant find that!');
 });
-
-
-
-
-// prerender
-
-  //.set('prerenderServiceUrl', (process.env.NODE_ENV !== 'production') ? 'http://localhost:1137/' : 'http://service.prerender.io/')
-
-
-
 
 app.set('port', port);
 
@@ -80,6 +75,22 @@ function normalizePort(val) {
 
   return false;
 }
+
+
+
+
+
+function generateSitemap(){
+  var objMap = {};
+  for(var s in objConfig.routes){
+    if(s.indexOf("sitemap") == -1 && s.indexOf("error") == -1 && s.indexOf(":") == -1 && s.indexOf("*path") == -1 )
+      objMap["/"+s] = ['get'];
+  }
+
+
+  return {map : objMap};
+}
+
 
 
 /**
