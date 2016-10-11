@@ -15,6 +15,7 @@ var HomeView = BaseView.extend({
   */
   $domEl : null,
   carousel : null,
+  components : [],
 
   initialize: function (options) {
     this.options = options || {};
@@ -28,9 +29,15 @@ var HomeView = BaseView.extend({
 
     console.log(this.$domEl);
 
-    carousel = new CarouselComponent({identifier : "home_carousel"});
-    this.$domEl.find("#carousel-container").html(carousel.render().$el);
-    carousel.build();
+    this.carousel = new CarouselComponent({identifier : "home_carousel"});
+    this.$domEl.find("#carousel-container").html(this.carousel.render().$el);
+    this.carousel.build();
+    this.components.push(this.carousel);
+  },
+
+
+  destroy : function(){
+    this.carousel.destroy();
   },
 
 

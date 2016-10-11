@@ -27,13 +27,15 @@ var BaseComponentView = Backbone.View.extend({
     console.error("["+this.identifier+"] - component build not implemented");
   },
 
+
+  destroy : function(){
+    console.error("["+this.identifier+"] - component destroy not implemented");
+  },
+
   remove: function(){
     TweenMax.killTweensOf($("#"+this.identifier));
   },
 
-  destroy : function(){
-    console.error("component.destroy is not implemented.");
-  },
 
 });
 

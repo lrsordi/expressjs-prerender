@@ -42,6 +42,10 @@ gulp.task('browserify-client', function() {
   });
 
   return b
+  .on('error', function (err) {
+          console.log(err.toString());
+          this.emit("end");
+      })
    // .transform("babelify", {})
    // .plugin(resolutions, ['react'])
     .bundle()
@@ -49,10 +53,6 @@ gulp.task('browserify-client', function() {
     .pipe(buffer())
     .pipe(rename('scripts.js'))
     .pipe(gulp.dest('app/public/scripts'))
-    .on('error', function (err) {
-            console.log(err.toString());
-            this.emit("end");
-        })
     .pipe(livereload());
 });
 
