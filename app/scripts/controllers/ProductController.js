@@ -9,7 +9,7 @@ var ProductController = AbstractController.extend({
   		this.options.app.router.navigate("/error/url="+Backbone.history.getFragment(),true);
   		return;
   	}
-    this.view = new ProductView({name : id, id : id, endAppear : this.viewDidAppear, identifier : "product"});
+    this.view = new ProductView({name : id, id : id, endAppear : this.viewDidAppear, identifier : "product", controller : this});
     this.render();
     this.view.doAppear();
   }

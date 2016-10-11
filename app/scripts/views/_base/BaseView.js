@@ -19,19 +19,25 @@ var BaseView = Backbone.View.extend({
     TweenMax.killTweensOf($("#"+this.identifier));
   },
 
+  destroy : function(){
+    console.error("view.destroy is not implemented.");
+  },
+
   doDisappear : function(){
-    this.remove();
-    this.unbind();
+    // this.remove();
+    // this.unbind();
+    TweenMax.from($("#"+this.identifier), 1, {alpha : 0, y : "10%", ease : Quint.easeOut, onComplete:this.options.endAppear});
   },
 
 
   doAppear : function(animated){
   	animated = animated || true;
-  	TweenMax.from($("#"+this.identifier), 1, {alpha : 0, y : "10%", ease : Quint.easeOut, onComplete:this.options.endAppear});
+    var self = this;
+  	TweenMax.from($("#"+this.identifier), 1, {alpha : 0, y : "10%", ease : Quint.easeOut, onComplete:self._internalEndAppear, onCompleteParams:[self.controller]});
   },
 
-  _internalEndAppear : function(){
-  	this.controller.viewDidAppear();
+  _internalEndAppear : function(controller){
+  	controller.viewDidAppear();
   },
 
   manageSubsection : function(str){

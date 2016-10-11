@@ -29,6 +29,10 @@ var AbstractController = Backbone.Controller.extend({
 		window.prerenderReady = true;
 	},
 
+	viewDidDisappear : function(){
+		
+	},
+
 
 	renderError : function(){
 		$("head meta[name='prerender-status-code']").attr("content", "404");

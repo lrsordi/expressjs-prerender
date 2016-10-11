@@ -89,10 +89,10 @@ gulp.task('jst', function () {
         var arrSplit = [];
 
         if(templateName.indexOf("\\") != -1){
-          templateName.split("\\");
+          arrSplit = templateName.split("\\");
         }
         else {
-          templateName.split("/");
+          arrSplit = templateName.split("/");
         }
         templateName = arrSplit[arrSplit.length-1].replace(".tpl","");
         // console.log(templateName);
@@ -102,7 +102,7 @@ gulp.task('jst', function () {
         interpolate: /\{\{(.+?)\}\}/g
       }
     }))
-    .pipe(gulp.dest('app/public/templates'))
+    .pipe(gulp.dest('app/public/templates'));
 });
 
 gulp.task('html',function(){

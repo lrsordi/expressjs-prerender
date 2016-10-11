@@ -25,7 +25,7 @@ var MainView = Backbone.View.extend({
       this.render();
 
     if(this.currentView != null){
-      this.currentView.doDisappear();
+      this.currentView.destroy();
     }
 
     this.currentView = view;
