@@ -10,7 +10,6 @@
 		 "sobre-o-projeto" : "aboutTheProject#index",
 		 "produto/:id" : "product#index",
 		 "*path" : "error404#index",
-		 "sitemap.xml" : "sitemap#index",
 		 "error(/:url)" : "error404#index"
 	}
 }

@@ -5,6 +5,16 @@
       "description" : "description home",
       "image" : "google.jpg"
     },
+    "home" : {
+      "title" : "titulohome",
+      "description" : "description home",
+      "image" : "google.jpg"
+    },
+    "home/" : {
+      "title" : "titulohome",
+      "description" : "description home",
+      "image" : "google.jpg"
+    },
     "home/block1" : {
       "title" : "titulo home subsection ",
       "description" : "description home subsection",

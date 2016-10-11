@@ -26,18 +26,30 @@ var BaseView = Backbone.View.extend({
   doDisappear : function(){
     // this.remove();
     // this.unbind();
-    TweenMax.from($("#"+this.identifier), 1, {alpha : 0, y : "10%", ease : Quint.easeOut, onComplete:this.options.endAppear});
+    var self = this;
+    TweenMax.killTweensOf($("#"+this.identifier));
+    TweenMax.to($("#"+this.identifier), 0.3, {alpha : 0, x : -100, ease : Back.easeIn, onComplete:self._internalEndDisappear, onCompleteParams:[self, self.options.controller]});
   },
 
 
   doAppear : function(animated){
   	animated = animated || true;
     var self = this;
-  	TweenMax.from($("#"+this.identifier), 1, {alpha : 0, y : "10%", ease : Quint.easeOut, onComplete:self._internalEndAppear, onCompleteParams:[self.controller]});
+    TweenMax.killTweensOf($("#"+this.identifier));
+  	TweenMax.from($("#"+this.identifier), 0.6, {alpha : 0, x : 100, ease : Back.easeOut, onComplete:self._internalEndAppear, onCompleteParams:[self,self.options.controller]});
   },
 
-  _internalEndAppear : function(controller){
+  _internalEndAppear : function(self,controller){
+    console.log(self.identifier);
+    console.log()
   	controller.viewDidAppear();
+    controller.viewIsReady();
+    self.trigger('endAppear');
+  },
+
+  _internalEndDisappear : function(self, controller){
+  	controller.viewDidDisappear();
+    self.trigger('endDisappear');
   },
 
   manageSubsection : function(str){

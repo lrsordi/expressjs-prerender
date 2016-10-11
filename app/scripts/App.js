@@ -6,7 +6,6 @@ var Http = require('http');
 var HomeController = require('./controllers/HomeController');
 var AboutTheProjectController = require('./controllers/AboutTheProjectController');
 var ProductController = require('./controllers/ProductController');
-var SitemapController = require('./controllers/_core/SitemapController');
 var Error404Controller = require('./controllers/_core/Error404Controller');
 var MainView = require('./views/_base/MainView');
 
@@ -64,7 +63,6 @@ Application.prototype.initialize = function() {
     home : new HomeController({app : this}),
     aboutTheProject : new AboutTheProjectController({app : this}),
     product : new ProductController({app : this}),
-    sitemap : new SitemapController({app:this}),
     error404 : new Error404Controller({app : this})
   };
 
@@ -94,6 +92,9 @@ Application.prototype.initialize = function() {
   var self = this;
   $(document).on("click",".history-link", function(evt){
     evt.preventDefault();
+
+    if(self.mainView.performingTransition) return;
+
     self.router.navigate($(this).attr("href"), true);
   });
 

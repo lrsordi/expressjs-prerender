@@ -11,7 +11,6 @@ var HomeController = AbstractController.extend({
   	if($("#home").length == 0){
   		  this.view = new HomeView({controller : this, identifier : "home"});
   	    this.render();
-  	    this.view.doAppear();
   	}
   	this.checkSubsection();
   },

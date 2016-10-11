@@ -26,11 +26,16 @@ var AbstractController = Backbone.Controller.extend({
 	},
 
 	viewDidAppear : function(){
+
+	},
+
+
+	viewIsReady : function(){
 		window.prerenderReady = true;
 	},
 
 	viewDidDisappear : function(){
-		
+
 	},
 
 

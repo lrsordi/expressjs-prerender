@@ -8,7 +8,7 @@ var AboutTheProjectController = AbstractController.extend({
   index : function(){
     this.view = new AboutTheProjectView({identifier : "about-the-project", controller : this});
     this.render();
-    this.view.doAppear();
+    //this.view.doAppear();
   }
 });
 

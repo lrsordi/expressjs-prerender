@@ -7,11 +7,11 @@ var Error404Controller = AbstractController.extend({
 
   index : function(){
   	this.renderError();
-    if(!this.view){
-      this.view = new Error404View({url : Backbone.history.getFragment(), endAppear : this.viewDidAppear, identifier : "error", controller : this});
-    }
+  //  if(!this.view){
+      this.view = new Error404View({url : Backbone.history.getFragment(), identifier : "error", controller : this});
+    //}
     this.render();
-    
+
   }
 });
 

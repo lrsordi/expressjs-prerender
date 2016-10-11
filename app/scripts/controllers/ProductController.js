@@ -5,13 +5,8 @@ var ProductView = require('../views/sections/ProductView');
 
 var ProductController = AbstractController.extend({
   index : function(id){
-  	if(id > 5){
-  		this.options.app.router.navigate("/error/url="+Backbone.history.getFragment(),true);
-  		return;
-  	}
     this.view = new ProductView({name : id, id : id, endAppear : this.viewDidAppear, identifier : "product", controller : this});
     this.render();
-    this.view.doAppear();
   }
 });
 

@@ -361,6 +361,7 @@ html {
   margin: 0;
   position: relative;
   min-height: 100%;
+  overflow-x: hidden;
 }
 body,
 html {
