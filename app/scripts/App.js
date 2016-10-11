@@ -8,6 +8,9 @@ var AboutTheProjectController = require('./controllers/AboutTheProjectController
 var ProductController = require('./controllers/ProductController');
 var Error404Controller = require('./controllers/_core/Error404Controller');
 var MainView = require('./views/_base/MainView');
+var MobileDetect = require('mobile-detect');
+
+require('fastclick');
 
 
 Backbone.$ = $;
@@ -53,6 +56,8 @@ Método de inicialização da classe.
 **/
 Application.prototype.initialize = function() {
   console.log("initialize");
+
+  window.md = new MobileDetect(window.navigator.userAgent);
   /**
   * Lista de controllers: `budgetList`,`budget`,`login`
       * @property window.app.controllers
@@ -100,6 +105,12 @@ Application.prototype.initialize = function() {
 
   this.mainView.render();
   Backbone.history.start({ pushState: true, root : "/", silent : false });
+
+  if ('addEventListener' in document) {
+    document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
+  }
 };
 
 

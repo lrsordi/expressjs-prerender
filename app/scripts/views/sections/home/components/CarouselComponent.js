@@ -1,5 +1,5 @@
 var Backbone = require('backbone');
-var BaseComponent = require('../../_base/BaseComponentView');
+var BaseComponent = require('../../../_base/BaseComponentView');
 
 
 

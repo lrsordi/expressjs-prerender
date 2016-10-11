@@ -1,5 +1,5 @@
 var Backbone = require('backbone');
-var BaseView = require('../_base/BaseView');
+var BaseView = require('../../_base/BaseView');
 
 /**
 * TEMPLATE VIEW
@@ -17,7 +17,7 @@ var AboutTheProjectView = BaseView.extend({
     this.controller = options.controller;
   },
 
-  
+
 
   render : function(parentNode){
     this.$el = window.templates.aboutheproject({identifier : this.identifier, title : "Sobre o projeto", aboutTxt : "sobre o texto! =)"});

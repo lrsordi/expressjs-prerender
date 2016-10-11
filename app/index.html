@@ -12,17 +12,19 @@
         <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" >
         -->
         <meta http-equiv="pragma" content="no-cache" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
         <title>ExpressJS</title>
         <link rel="shortcut icon" href="public/images/favicon.ico" type="image/x-icon" />
         <meta content="--" name="author" />
         <!-- @ifdef DEBUG -->
-        <base href="http://localhost:3000/"/>
+        <base href="<%- root_url %>"/>
         <!-- @endif -->
         <!-- @if NODE_ENV='production' -->
-        <base href="http://localhost:3000/"/>
+        <base href="<%- root_url %>"/>
         <!-- @endif -->
         <!-- @if NODE_ENV='development' -->
-        <base href="http://localhost:3000/"/>
+        <base href="<%- root_url %>"/>
         <!-- @endif -->
         <meta name="fragment" content="!">
         <meta name="description" content="--">

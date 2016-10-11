@@ -16,10 +16,17 @@ var prerender = require('prerender-node');
 var fs = require('fs');
 var objConfig = JSON.parse(fs.readFileSync('config/routes.json', 'utf8'));
 var server = http.createServer(app);
+var html = require('html');
 var sitemap = require('express-sitemap');
+var cons = require('consolidate');
 
 
 app.use('/public', express.static(__dirname + '/app/public'));
+
+
+app.engine('html', cons.underscore);
+// set .html as the default extension
+app.set('view engine', 'html');
 
 prerender.set('prerenderServiceUrl', (process.env.NODE_ENV !== 'production') ? 'http://localhost:1137/' : 'http://service.prerender.io/');
 prerender.set('prerenderToken', 'JzaYMT1rHS9YfjYujxvN');
@@ -37,7 +44,10 @@ app.get('/robots.txt', function(req, res, next) {
 
 
 app.get('*', function(req, res, next) {
-  res.sendFile(__dirname + "/app/index.html");
+
+  var fullUrl = req.protocol + '://' + req.get('host');
+  res.render(__dirname + "/app/index.html", {root_url : fullUrl});
+  //res.sendFile(__dirname + "/app/index.html");
   //res.status(404).send('Sorry cant find that!');
 });
 

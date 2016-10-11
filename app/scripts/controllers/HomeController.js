@@ -1,6 +1,6 @@
 var Backbone = require('backbone');
 var $ = require('jquery');
-var HomeView = require('../views/sections/HomeView');
+var HomeView = require('../views/sections/home/HomeView');
 var AbstractController = require('./_base/AbstractController');
 
 

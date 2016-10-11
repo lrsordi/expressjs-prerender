@@ -1,7 +1,7 @@
 var Backbone = require('backbone');
-var BaseView = require('../_base/BaseView');
+var BaseView = require('../../_base/BaseView');
 require('gsap');
-var CarouselComponent = require('./home/CarouselComponent');
+var CarouselComponent = require('./components/CarouselComponent');
 require('gsap/src/uncompressed/plugins/ScrollToPlugin');
 
 /**
