@@ -49,6 +49,10 @@ gulp.task('browserify-client', function() {
     .pipe(buffer())
     .pipe(rename('scripts.js'))
     .pipe(gulp.dest('app/public/scripts'))
+    .on('error', function (err) {
+            console.log(err.toString());
+            this.emit("end");
+        })
     .pipe(livereload());
 });
 

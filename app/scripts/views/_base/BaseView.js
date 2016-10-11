@@ -8,6 +8,7 @@ var BaseView = Backbone.View.extend({
   */
   rendered : false,
   identifier : "",
+  references : null,
   controller : {},
   $domEl : {},
 
@@ -40,8 +41,6 @@ var BaseView = Backbone.View.extend({
   },
 
   _internalEndAppear : function(self,controller){
-    console.log(self.identifier);
-    console.log()
   	controller.viewDidAppear();
     controller.viewIsReady();
     self.trigger('endAppear');

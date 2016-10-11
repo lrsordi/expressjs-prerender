@@ -7,6 +7,9 @@
   </ul>
   <h1>Olá</h1>
 
+
+  <div id="carousel-container"></div>
+
   <div class="block block1"></div>
   <div class="block block2"></div>
   <div class="block block3"></div>

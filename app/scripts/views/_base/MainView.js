@@ -54,7 +54,6 @@ var MainView = Backbone.View.extend({
   endAppear : function(){
     this.performingTransition = false;
     this.checkRouteChanges();
-    console.log("END APPEAR");
   },
 
 
